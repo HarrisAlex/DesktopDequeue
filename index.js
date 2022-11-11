@@ -32,6 +32,8 @@ const createWindow = () => {
     })
 
     window.loadFile('index.html');
+
+    ipcMain.handle('get-ip', () => lan_ip);
 }
 
 
@@ -43,10 +45,6 @@ app.whenReady().then(() => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow()
         }
-    });
-
-    ipcMain.on("get-ip", (event, value) => {
-        event.returnValue = lan_ip;
     });
 })
 

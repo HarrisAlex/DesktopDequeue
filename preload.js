@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    getIP: () => ipcRenderer.send('get-ip')
+    getIP: () => ipcRenderer.invoke('get-ip')
 });
