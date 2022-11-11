@@ -1,0 +1,30 @@
+:root {
+    --grey: #4d4d4d;
+    --white: #edede4;
+    --light-grey: #8f8f8d;
+}
+
+body {
+    background-color: var(--grey);
+    color: var(--white);
+
+    font-family: sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: var(--white);
+}
+
+a:hover {
+    color: var(--light-grey);
+}
+
+a:visited {
+    color: var(--white);
+}
+
+#sidebar ul {
+    list-style-type: none;
+    font-size: 1.25em;
+}
