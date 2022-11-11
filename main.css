@@ -1,14 +1,18 @@
 :root {
-    --grey: #4d4d4d;
+    --dark-grey: #1a1a1a;
     --white: #edede4;
     --light-grey: #8f8f8d;
 }
 
 body {
-    background-color: var(--grey);
+    background-color: black;
     color: var(--white);
 
     font-family: sans-serif;
+
+    margin: 20px;
+
+    display: flex;
 }
 
 a {
@@ -24,7 +28,29 @@ a:visited {
     color: var(--white);
 }
 
-#sidebar ul {
-    list-style-type: none;
-    font-size: 1.25em;
+#sidebar {
+    background-color: var(--dark-grey);
+
+    width: fit-content;
+    height: 80vh;
+
+    top: 5vh;
+
+    padding: 5vh;
+
+    display: flex;
+    flex-direction: column;
+
+    font-size: 1.1em;
+}
+
+#sidebar a {
+    margin-bottom: 1em;
+}
+
+#actions-container {
+    margin-left: 3vw;
+    width: 100%;
+
+    background-color: var(--dark-grey);
 }

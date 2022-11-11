@@ -3,16 +3,20 @@
     <head>
         <title>Dequeue</title>
         <link href="main.css" rel="stylesheet">
-        <script src='./main.js'></script>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+        <script src='./jquery-3.6.1.js'></script>
     </head>
     <body>
         <div id="sidebar">
-            <ul>
-                <a><li>Record</li></a>
-                <a><li>Actions</li></a>
-                <a href="#" id="phone-link" onclick="phoneLink()"><li>Link to Phone</li></a>
-            </ul>
+                <a>Record</a>
+                <a>Actions</a>
+                <a href="#" id="phone-link">Link to Phone</a>
         </div>
-        <p id="device-name"></p>
+        <div id="actions-container">
+            <div class="action">
+                
+            </div>
+        </div>
+        <script src='./main.js'></script>
     </body>
 </html>
