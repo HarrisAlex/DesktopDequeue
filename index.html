@@ -1,22 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Dequeue</title>
-        <link href="main.css" rel="stylesheet">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
-        <script src='./jquery-3.6.1.js'></script>
-    </head>
-    <body>
-        <div id="sidebar">
-                <a>Record</a>
-                <a>Actions</a>
-                <a href="#" id="phone-link">Link to Phone</a>
-        </div>
-        <div id="actions-container">
-            <div class="action">
-                
-            </div>
-        </div>
-        <script src='./main.js'></script>
-    </body>
+	<head>
+		<title>Dequeue</title>
+		<link href="main.css" rel="stylesheet" />
+		<script src="./jquery-3.6.1.js"></script>
+	</head>
+	<body>
+		<div id="actionsContainer">
+			<div class="action" id="addAction">
+				<svg src=""></svg>
+				<p>New</p>
+			</div>
+			<div class="action">
+				<svg src=""></svg>
+				<p>CBT</p>
+			</div>
+		</div>
+		<div id="phoneLinkContainer" class="modal">
+			<p>Enter this number into the mobile app:</p>
+			<p id="ipAddress">IP address</p>
+			<div id="phoneLinkClose" class="button">Close</div>
+		</div>
+		<div id="newActionContainer" class="modal">
+			<p>Create New Action</p>
+			<div class="textInputField inputSection">
+				<input type="text" id="actionName" placeholder="Action Name" />
+			</div>
+			<div class="inputSection">
+				<label for="color">Background Color:</label>
+				<input type="color" id="actionColor" />
+			</div>
+			<div class="inputSection">
+				<label>Select Icon:</label>
+				<div id="pickIcon"></div>
+			</div>
+			<div class="inputSection">
+				<label for="color">Icon Color:</label>
+				<input type="color" id="actionColor" />
+			</div>
+			<div class="inputSection">
+				<div id="record">Record</div>
+			</div>
+			<div class="inputSection"><button id="saveAction">Create</button></div>
+			<div id="iconSelectionContainer">
+				<div id="iconGrid"></div>
+			</div>
+			<div id="gaysex"></div>
+		</div>
+		<div id="phoneLink" class="button">Link to Phone</div>
+		<div id="modalBackdrop"></div>
+		<script src="./main.js"></script>
+	</body>
+	<script>
+		document.write(
+			'<script src="http://' +
+				(location.host || "localhost").split(":")[0] +
+				':35729/livereload.js?snipver=1"></' +
+				"script>"
+		);
+	</script>
 </html>

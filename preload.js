@@ -1,5 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    getIP: () => ipcRenderer.invoke('get-ip')
+    getIP: () => ipcRenderer.invoke('get-ip'),
+    keystrokeRecorder: () => ipcRenderer.invoke('keystrokeRecorder')
 });
+
