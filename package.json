@@ -17,6 +17,7 @@
     "child_process": "^1.0.2",
     "ip": "^1.1.8",
     "keystroke-recorder": "^2.3.0",
+    "node-key-sender": "^1.0.11",
     "node-static": "^0.7.11",
     "ws": "^8.10.0"
   }

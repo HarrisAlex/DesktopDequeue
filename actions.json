@@ -1,1 +1,11 @@
-[{"name":"TEST","icon":"gear","keybinds":[]},null,null,null,null,null,{"Test":"testing"},{"Test":"testing"},{"Test":"testing","uid":22503842515627}]
+[
+	{
+		"name": "TEST 2",
+		"icon": "gear",
+		"keybinds": [],
+		"backgroundColor": "#FF3333"
+	},
+	{ "name": "Copy" },
+	{ "name": "Paste" },
+	{ "name": "Men", "uid": 22503842515627 }
+]
