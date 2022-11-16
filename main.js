@@ -134,7 +134,7 @@ function openIconSelection() {
 }
 
 function updateSelectedIcon() {
-	pickIconButton.css({"background-image": "url(" + selectedIcon + ")", "background-size": "100% 100%"});
+	pickIconButton.css({"background-image": "url(" + selectedIcon + ")", "background-size": "100% 100%", "background-color": backgroundColorInput.val()});
 }
 
 function closeIconSelection() {

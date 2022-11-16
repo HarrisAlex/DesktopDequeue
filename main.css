@@ -241,8 +241,8 @@ a:visited {
 
 #iconSelectionContainer {
 	position: fixed;
-	width: 10rem;
-	height: 15rem;
+	width: calc(10rem + 12px);
+	height: calc(15rem + 18px);
 	overflow-y: scroll;
 	z-index: 10;
 }
@@ -272,6 +272,9 @@ a:visited {
 #iconGrid {
 	display: flex;
 	flex-wrap: wrap;
+
+	height: calc(10rem + 6px);
+
 	z-index: 20;
 	position: absolute;
 }
@@ -286,9 +289,15 @@ a:visited {
 }
 
 .icon {
-	width: 5rem;
-	height: 5rem;
+	width: calc(5rem + 6px);
+	height: calc(5rem + 6px);
 	box-shadow: inset 0 0 1px 2px black;
+
+	cursor: pointer;
+}
+
+.icon:hover {
+	border: solid 1px black;
 }
 
 .icon img {
