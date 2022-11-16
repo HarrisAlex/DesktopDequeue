@@ -1,11 +1,1 @@
-[
-	{
-		"name": "TEST 2",
-		"icon": "gear",
-		"keybinds": [],
-		"backgroundColor": "#FF3333"
-	},
-	{ "name": "Copy" },
-	{ "name": "Paste" },
-	{ "name": "Men", "uid": 22503842515627 }
-]
+[{"name":"Among us","icon":"icons/dequeue.svg","id":14796994467386,"backgroundColor":"#37718e","iconColor":"#19364d","keybinds":"Shift + V"},{"name":"Take Selfie","icon":"icons/dequeue.svg","id":24119725226173,"backgroundColor":"#7a4c90","iconColor":"#913618","keybinds":"Shift + M"}]

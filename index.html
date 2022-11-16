@@ -6,37 +6,42 @@
 		<script src="./jquery-3.6.1.js"></script>
 	</head>
 	<body>
+		<h1 id="title">Dequeue</h1>
 		<div id="actionsContainer"></div>
 		<div id="phoneLinkContainer" class="modal">
-			<p>Enter this number into the mobile app:</p>
-			<p id="ipAddress">IP address</p>
-			<div id="phoneLinkClose" class="button">Close</div>
+			<div class="modalScrollWrapper">
+				<p>Enter this number into the mobile app:</p>
+				<p id="ipAddress">IP address</p>
+				<div id="phoneLinkClose" class="button">Close</div>
+			</div>
 		</div>
 		<div id="newActionContainer" class="modal">
-			<p>Create New Action</p>
-			<div class="textInputField inputSection">
-				<input type="text" id="actionName" placeholder="Action Name" />
+			<div class="modalScrollWrapper">
+				<p>Create New Action</p>
+				<div class="textInputField inputSection">
+					<input type="text" id="actionName" placeholder="Action Name" />
+				</div>
+				<div class="inputSection">
+					<label for="color">Background Color:</label>
+					<input type="color" id="actionBackgroundColor" />
+				</div>
+				<div class="inputSection">
+					<label>Select Icon:</label>
+					<div id="pickIcon"></div>
+				</div>
+				<div class="inputSection">
+					<label for="color">Icon Color:</label>
+					<input type="color" id="actionIconColor" />
+				</div>
+				<div class="inputSection">
+					<div id="record">Record</div>
+				</div>
+				<button id="saveAction">Create</button>
+				<div id="iconSelectionContainer">
+					<div id="iconGrid"></div>
+				</div>
+				<div id="gaysex"></div>
 			</div>
-			<div class="inputSection">
-				<label for="color">Background Color:</label>
-				<input type="color" id="actionColor" />
-			</div>
-			<div class="inputSection">
-				<label>Select Icon:</label>
-				<div id="pickIcon"></div>
-			</div>
-			<div class="inputSection">
-				<label for="color">Icon Color:</label>
-				<input type="color" id="actionColor" />
-			</div>
-			<div class="inputSection">
-				<div id="record">Record</div>
-			</div>
-			<div class="inputSection"><button id="saveAction">Create</button></div>
-			<div id="iconSelectionContainer">
-				<div id="iconGrid"></div>
-			</div>
-			<div id="gaysex"></div>
 		</div>
 		<div id="phoneLink" class="button">Link to Phone</div>
 		<div id="modalBackdrop"></div>
@@ -49,5 +54,6 @@
 				':35729/livereload.js?snipver=1"></' +
 				"script>"
 		);
+
 	</script>
 </html>

@@ -1,15 +1,30 @@
 var lan_ip;
+var allActions;
 
 var phoneLink = $("#phoneLink");
 var phoneLinkClose = $("#phoneLinkClose");
 var phoneLinkContainer = $("#phoneLinkContainer");
 var newActionContainer = $("#newActionContainer");
 
-// Submit button to save action
-var saveAction = $("#saveAction");
 
-// set save action to disabled
-$("#saveAction").addClass("disabled");
+// Submit button to save action
+var saveActionButton = $("#saveAction");
+var actionNameInput = $("#actionName");
+var backgroundColorInput = $("#actionBackgroundColor");
+var pickIconButton = $("#pickIcon");
+var recordButton = $("#record");
+var iconColorInput = $("#actionIconColor");
+
+pickIconButton.on("click", openIconSelection);
+
+actionNameInput.on("change", onActionInput);
+backgroundColorInput.on("change", onActionInput);
+iconColorInput.on("change", onActionInput);
+
+// set save action to disabled and bind click event
+saveActionButton.addClass("disabled");
+saveActionButton.on("click", saveAction);
+
 
 $("#gaysex").addClass("hidden");
 
@@ -35,31 +50,22 @@ var modalBackdrop = $("#modalBackdrop");
 modalBackdrop.addClass("hidden");
 
 //Icon selection
-var pickIconButton = $("#pickIcon");
-pickIconButton.on("click", openIconSelection);
-
 var iconSelectionContainer = $("#iconSelectionContainer");
-
 var iconGrid = $("#iconGrid");
+var selectedIcon;
 
 //Icons
 var icons = [
-	"placeholder.jpeg",
-	"placeholder.jpeg",
-	"backdrop.jpeg",
-	"icon.jpeg",
-	"placeholder.jpeg",
-	"icon.jpeg",
-	"placeholder.jpeg",
-	"icon.jpeg",
+	"icons/dequeue.svg",
+	"icons/gear.svg"
 ];
+
+var iconSelectionInstance = [];
 
 var gaysex = $("#gaysex");
 gaysex.addClass("hidden");
 
 closeIconSelection();
-
-var selectedIcon;
 
 window.electronAPI.getIP().then(function (result) {
 	lan_ip = result;
@@ -82,7 +88,7 @@ function closePhoneLink() {
 }
 
 function openNewActionContainer() {
-	phoneLinkContainer.removeClass("firstLoad");
+	newActionContainer.removeClass("firstLoad");
 	newActionContainer.removeClass("hidden");
 	modalBackdrop.removeClass("hidden");
 }
@@ -98,11 +104,37 @@ function openIconSelection() {
 
 	$("#gaysex").removeClass("hidden");
 
+	let selectIcon = (iconSrc) => {
+		selectedIcon = iconSrc;
+		onActionInput();
+		updateSelectedIcon();
+		closeIconSelection();
+	};
+
+	iconSelectionInstance = [];
+
+	iconGrid.empty();
+
 	for (var i = 0; i < icons.length; i++) {
+		var icon = $('<div class="icon"><img src=' + icons[i] + '></div>');
+		icon.attr("iconsrc", icons[i]);
+		icon.css("background-color", backgroundColorInput.val());
+
+		iconSelectionInstance.push(icon);
+
 		iconGrid
-			.append('<div class="icon"><img src=' + icons[i] + "></div>")
+			.append(icon)
 			.on("click", function () {});
 	}
+	
+	for (var i = 0; i < iconSelectionInstance.length; i++) {
+		let iconSrc = iconSelectionInstance[i].attr("iconsrc");
+		iconSelectionInstance[i].on("click", () => selectIcon(iconSrc));
+	}
+}
+
+function updateSelectedIcon() {
+	pickIconButton.css({"background-image": "url(" + selectedIcon + ")", "background-size": "100% 100%"});
 }
 
 function closeIconSelection() {
@@ -135,24 +167,18 @@ function setRandomDefaultValue(element) {
 	element.val(randomColor);
 }
 
-function verifyCanSubmitAction() {
-	if (hasBeenRecorded) {
-		$("#saveAction").removeClass("disabled");
-	}
-}
-
 $("input[type=color]").each(function () {
 	setRandomDefaultValue($(this));
 });
 
-$("#record").on("click", function () {
+recordButton.on("click", function () {
 	record();
 });
 
 function record() {
 	isRecording = true;
-	$("#record").addClass("recording");
-	$("#record").html("Recording...");
+	recordButton.addClass("recording");
+	recordButton.html("Recording...");
 }
 
 // Keyboard event listeneer that listens for keypresses and prints the key pressed
@@ -177,7 +203,7 @@ document.addEventListener("keypress", function (e) {
 	console.log(key);
 
 	if (isRecording) {
-		var keyContainer = $("#record");
+		var keyContainer = recordButton;
 		// Modifier keys into a string with a + between each
 		var modifierKeysString = modifierKeys.join(" + ");
 		// If there are no modifier keys, just print the key
@@ -188,9 +214,9 @@ document.addEventListener("keypress", function (e) {
 			keyContainer.html(modifierKeysString + " + " + key);
 		}
 		isRecording = false;
-		$("#record").removeClass("recording");
+		recordButton.removeClass("recording");
 		hasBeenRecorded = true;
-		verifyCanSubmitAction();
+		onActionInput();
 	}
 });
 
@@ -200,17 +226,60 @@ document.addEventListener("keypress", function (e) {
 // Takes in an icon name and converts it to the appropriate icon
 function iconBuilder(iconName) {
 	var icon = $("<img>").addClass("actionIcon");
-	switch (iconName) {
-		case "gear":
-			icon.attr("src", "icons/gear.svg");
-			break;
-		default:
-		case "dequeue":
-			icon.attr("src", "icons/dequeue.svg");
-			break;
-	}
+
+	// switch (iconName) {
+	// 	case "gear":
+	// 		icon.attr("src", "icons/gear.svg");
+	// 		break;
+	// 	default:
+	// 	case "dequeue":
+	// 		icon.attr("src", "icons/dequeue.svg");
+	// 		break;
+	// }
+
+	icon.attr("src", iconName);
 
 	return icon;
+}
+
+function onActionInput() {
+	saveActionButton.addClass("disabled");
+
+	if (actionNameInput.val() === '') return;
+	if (backgroundColorInput.val() === '') return;
+	if (iconColorInput.val() === '') return;
+	if (selectedIcon === null) return;
+	if (recordButton.html() === "Record") return;
+
+	saveActionButton.removeClass("disabled");
+}
+
+function saveAction() {
+	if (saveActionButton.hasClass("disabled")) return;
+
+	window.electronAPI.getActions().then(function (result) {
+		saveActionToJSON(result);
+	});
+}
+
+function saveActionToJSON(existingActions) {
+	var newAction = {
+		"name": actionNameInput.val(),
+		"icon": selectedIcon,
+		"id": 	Math.floor(Math.random() * 100000000000000),
+		"backgroundColor": backgroundColorInput.val(),
+		"iconColor": iconColorInput.val(),
+		"keybinds": recordButton.html()
+	};
+
+	existingActions.push(newAction);
+
+	allActions = existingActions;
+
+	window.electronAPI.setActions(existingActions);
+
+	closeNewActionContainer();
+	refreshActions();
 }
 
 //  -- Action builder --
@@ -237,7 +306,6 @@ function actionBuilder(action) {
 	actionContainer.attr("data-id", action.id);
 
 	actionContainer.css("--background-color", action.backgroundColor);
-	console.log(action.backgroundColor);
 
 	actionContainer.append(icon);
 	actionContainer.append(actionName);
@@ -268,6 +336,10 @@ function getActions() {
 	window.electronAPI.getActions().then(function (result) {
 		fillActions(result);
 	});
+}
+
+function refreshActions() {
+	fillActions(allActions);
 }
 
 getActions();

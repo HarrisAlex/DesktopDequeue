@@ -2,7 +2,9 @@
 
 const { app, BrowserWindow, ipcMain, globalShortcut } = require("electron");
 const path = require("path");
+const fs = require("fs");
 const ip = require("ip");
+const http = require("http");
 
 const { networkInterfaces } = require("os");
 const nets = networkInterfaces();
@@ -30,9 +32,14 @@ function getActions() {
 	return actions;
 }
 
+function setActions(event, actions) {
+	fs.writeFileSync("./actions.json", JSON.stringify(actions));
+}
+
 app.whenReady().then(() => {
 	createWindow();
 	ipcMain.handle("get-actions", getActions);
+	ipcMain.handle("set-actions", setActions);
 
 	app.on("activate", () => {
 		if (BrowserWindow.getAllWindows().length === 0) {
